@@ -11,6 +11,7 @@ class API(ABC):
 class HeadHunter_API(API):
     pass
 
+
 class SuperJob_API(API):
     pass
 
