@@ -4,10 +4,9 @@ version = "0.1.0"
 description = ""
 authors = ["Denis Prusakov <Denikpr@gmail.com>"]
 readme = "README.md"
-packages = [{include = "kurs4_job"}]
 
 [tool.poetry.dependencies]
-python = "^3.10"
+python = "^3.11"
 
 
 [build-system]
