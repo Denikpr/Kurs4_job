@@ -37,7 +37,10 @@ class HeadHunter_API(API):
     HH_API_URL_AREAS = 'https://api.hh.ru/areas'
 
     param_zero ={
-        'per_page': 100
+        'text': 'python',
+        'per_page': 100,
+        'area': 47,
+        'data': 14
     }
 
     def __init__(self):
@@ -46,8 +49,7 @@ class HeadHunter_API(API):
 
     def get_vacancies(self):
         response = requests.get(self.HH_API_URL, self.param)
-        response_data = json.loads(response.text)
-        return response_data
+        return response.json()["items"]
     def change_date(self):
         pass
 
