@@ -10,5 +10,5 @@ class UserInput:
         self.sj_api = SuperJob_API()
         self.all_list = MyList()
         self.favorite_list = MyList()
-        selg.param
+        self.param = copy.deepcopy(self.param_zero)
         pass
