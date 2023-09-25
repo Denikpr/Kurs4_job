@@ -1,5 +1,8 @@
 from abc import ABC, abstractmethod
 import copy
+import requests
+import json
+
 
 class API(ABC):
 
@@ -42,8 +45,9 @@ class HeadHunter_API(API):
         pass
 
     def get_vacancies(self):
-        pass
-
+        response = requests.get(self.HH_API_URL, self.param)
+        response_data = json.loads(response.text)
+        return response_data
     def change_date(self):
         pass
 
