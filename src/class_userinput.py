@@ -5,6 +5,7 @@ import copy
 class UserInput:
     pass
     param_zero = {}
+
     def __init__(self):
         self.hh_api = HeadHunter_API()
         self.sj_api = SuperJob_API()

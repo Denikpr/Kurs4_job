@@ -67,12 +67,12 @@ class SuperJob_API(API):
 
     SJ_API_URL = 'https://api.superjob.ru/2.0/vacancies/'
     SJ_API_URL_AREAS = 'https://api.superjob.ru/2.0/towns/'
+    SJ_TOKEN = 'v3.r.11439952.6468e5f8ea084a2b1a2c5b94398a1114d7e032d9.5288be6ffde188c194b264bf4fb844a89e8a5365'
 
     param_zero ={
-        'text': 'python',
-        'per_page': 100,
-        'area': 47,
-        'data': 14
+        'keyword': 'python',
+        'count': 100,
+        'town': 47,
     }
 
     def __init__(self):
@@ -80,8 +80,12 @@ class SuperJob_API(API):
         pass
 
     def get_vacancies(self):
-        response = requests.get(self.HH_API_URL, self.param)
-        return response.json()["items"]
+        headers = {
+            'X-Api-App-Id': self.SJ_TOKEN
+        }
+        response = requests.get(self.SJ_API_URL, headers=headers, params=self.param)
+        return response.json()
+
     def change_date(self):
         pass
 
@@ -92,7 +96,7 @@ class SuperJob_API(API):
         pass
 
     def load_all_areas(self):
-        response = requests.get(self.HH_API_URL_AREAS)
+        response = requests.get(self.SJ_API_URL_AREAS)
         return response.json()
 
 
