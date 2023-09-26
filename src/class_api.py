@@ -38,7 +38,7 @@ class HeadHunter_API(API):
 
     param_zero ={
         'text': 'python',
-        'per_page': 100,
+        'per_page': 5,
         'area': 47,
         'data': 14
     }
@@ -71,7 +71,7 @@ class SuperJob_API(API):
 
     param_zero ={
         'keyword': 'python',
-        'count': 100,
+        'count': 5,
         'town': 47,
     }
 
