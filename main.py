@@ -1,5 +1,5 @@
-from src.class_userinput import UserInput
+from src.class_userinput import Userinput
 
-if __name__ == '__main__':
-    userinput = UserInput()
+if __name__ == "__main__":
+    userinput = Userinput()
     userinput()
