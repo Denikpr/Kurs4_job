@@ -130,7 +130,7 @@ Url - {self.url}
                     return vacancy_information[param1][param2]
             else:
                 return vacancy_information[param1][param2][param3]
-        except Exception:
+        except KeyError:
             return None
 
         self.employer = vacancy_information["employer"]
@@ -249,5 +249,5 @@ Url - {self.url}
                     return vacancy_information[param1][param2]
             else:
                 return vacancy_information[param1][param2][param3]
-        except Exception:
+        except KeyError:
             return None
