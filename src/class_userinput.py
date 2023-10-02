@@ -1,7 +1,8 @@
+import copy
+
 from src.classes_api import HeadHunterAPI, SuperJobAPI
 from src.class_mylist import Mylist
 from src.class_vacancy import Vacancy
-import copy
 
 
 class Userinput:
@@ -31,8 +32,8 @@ class Userinput:
             print('Выберите нужный пункт:')
             print('1 - Поиск вакансий')
 
-            if self.mylist.vacancy_list != []:
-                print('2 - Show favorite vacancies')
+            if self.mylist.vacancy_list:
+                print('2 - Просмотреть выбранные вакансии')
 
             print('0 - Выход')
             user_input = input()
@@ -55,11 +56,11 @@ class Userinput:
             self.delete_duplicates()
             print('Вы должны выбрать сайт, город,дату публикации,и слово для поиска')
             print(f'Мы ищем вакансии за последние {self.param["date"]} дней')
-            if self.param['website'] != []:
+            if self.param['website']:
                 print(f"Вы выбрали сайт - {', '.join(self.param['website'])}")
-            if self.param['city'] != []:
+            if self.param['city']:
                 print(f"Вы выбрали город - {', '.join(self.param['city'])}")
-            if self.param['words'] != []:
+            if self.param['words']:
                 print(f"Вы ввели следующие слова для поиска- {', '.join(self.param['words'])}")
             print('1 - Выбрать сайт')
             print('2 - Добавить слово для поиска')
@@ -120,7 +121,7 @@ class Userinput:
         """
         while True:
             self.delete_duplicates()
-            if self.param['words'] != []:
+            if self.param['words']:
                 print(f"Вы ввели следующие слова - {', '.join(self.param['words'])}")
             print('Добавить слова для поиска или введите "удалить" все слова или выберите "0" для Выхода')
             user_input = input().lower()
@@ -143,19 +144,20 @@ class Userinput:
             user_input = input().lower()
             if user_input == '0':
                 break
-            if self.check_city(user_input):
+            if self.check_city(user_input) !== []:
                 self.param['city'].append(user_input)
                 break
             else:
                 print('Повторите снова. Так как мы не нашли этот город или нажали "0" для выхода')
 
-    def check_city(self, user_input:str):
+    def check_city(self, user_input: str):
         """
         Checking city from user
         :param user_input: str
         :return: True or False
         """
-        if self.hh_api.saver_areas.open_and_find_info(user_input) or self.sj_api.saver_areas.open_and_find_info(user_input):
+        if (self.hh_api.saver_areas.open_and_find_info(user_input)
+                or self.sj_api.saver_areas.open_and_find_info(user_input)):
             return True
         else:
             return False
@@ -196,34 +198,34 @@ class Userinput:
         :return: None
         """
         if 'HeadHunter' in self.param['website']:
-            if self.param['city'] != []:
+            if self.param['city']:
                 for item in range(len(self.param['city'])):
                     self.hh_api.add_area(self.param['city'][item])
-            if self.param['words'] != []:
+            if self.param['words']:
                 self.hh_api.add_words(self.param['words'])
             self.hh_api.change_date(self.param['date'])
 
             vacancies_hh = self.hh_api.get_vacancies()
 
-            if vacancies_hh != []:
+            if vacancies_hh:
                 for item in vacancies_hh:
-                   vacancy = Vacancy.create_vacancy_from_hh(item)
-                   self.all_list.add_vacancy(vacancy)
+                    vacancy = Vacancy.create_vacancy_from_hh(item)
+                    self.all_list.add_vacancy(vacancy)
 
         if 'SuperJob' in self.param['website']:
-            if self.param['city'] != []:
+            if self.param['city']:
                 for item in range(len(self.param['city'])):
                     self.sj_api.add_area(self.param['city'][item])
-            if self.param['words'] != []:
+            if self.param['words']:
                 self.sj_api.add_words(self.param['words'])
             self.sj_api.change_date(self.param['date'])
 
             vacancies_sj = self.sj_api.get_vacancies()
 
-            if vacancies_sj != []:
+            if vacancies_sj:
                 for item in vacancies_sj:
-                   vacancy = Vacancy.create_vacancy_from_sj(item)
-                   self.all_list.add_vacancy(vacancy)
+                    vacancy = Vacancy.create_vacancy_from_sj(item)
+                    self.all_list.add_vacancy(vacancy)
 
         self.param = copy.deepcopy(self.new_param)
 
@@ -235,7 +237,8 @@ class Userinput:
         :return: None
         """
         while True:
-            print(f'Мы нашли {len(self.all_list)} вакансии. Мы можем их отсортировать или отфильтровать. Выберите что надо сделать?')
+            print(f'Мы нашли {len(self.all_list)} вакансии. Мы можем их отсортировать или отфильтровать.'
+                  f' Выберите что надо сделать?')
             print('1 - Отсортировать вакансии по дате')
             print('2 - Отсортировать вакансии по зарплате')
             print('3 - Отфильтровать по слову')
@@ -300,7 +303,8 @@ class Userinput:
         :return:
         """
         while True:
-            print('Какие вакансии вы выбераете? Напишите цифру (через пробел, например "1 2 3 4 5").  Вы можете написать "все", чтобы добавить все вакансии в список избранных.')
+            print('Какие вакансии вы выбираете? Напишите цифру (через пробел, например "1 2 3 4 5").'
+                  'Вы можете написать "все", чтобы добавить все вакансии в список избранных.')
             numbers_vacancies = input().lower()
             if numbers_vacancies == '0':
                 break
@@ -316,7 +320,7 @@ class Userinput:
                 for number_str in numbers_str:
                     if number_str.isdigit():
                         numbers.append(int(number_str))
-                if numbers == []:
+                if not numbers:
                     print('Повторите попытку или введите "0" для выхода')
                     continue
 
@@ -332,7 +336,8 @@ class Userinput:
         :return: None
         """
         while True:
-            print(f'Мы добавили {len(self.mylist)} вакансии. МЫ можем сохранить их или сделать новый поиск. Выбирете что сделать дальше?')
+            print(f'Мы добавили {len(self.mylist)} вакансии. '
+                  f'МЫ можем сохранить их или сделать новый поиск. Выберите что сделать дальше?')
             print('1 - Сохранить избранные вакансии в CSV файл')
             print('2 - Сохранить избранные вакансии в XLSX файл')
             print('3 - Вывести избранные вакансии')

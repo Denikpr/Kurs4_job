@@ -1,11 +1,14 @@
-from abc import ABC, abstractmethod
-import requests
-import json
+import copy
 import datetime
+import json
 import time
 import os
+from abc import ABC, abstractmethod
+
+import requests
+
 from src.class_save_json import JSONSaver_Areas
-import copy
+
 
 class API(ABC):
 
@@ -29,13 +32,15 @@ class API(ABC):
     def load_all_areas(self):
         pass
 
+
 class HeadHunterAPI(API):
     """
-    This class for getting information from headhanter API
+    This class for getting information from headhunter API
     """
+    FILE1 = 'headhunter_areas.json'
     HH_API_URL = 'https://api.hh.ru/vacancies'
     HH_API_URL_AREAS = 'https://api.hh.ru/areas'
-    HH_AREAS_JSON = 'data/areas/headhunter_areas.json'
+    HH_AREAS_JSON = os.path.join(os.path.dirname(__file__), FILE1)
     params_zero = {
         'per_page': 100,
     }
@@ -62,7 +67,7 @@ class HeadHunterAPI(API):
         else:
             return []
 
-    def change_date(self, days: int =14):
+    def change_date(self, days: int = 14):
         """
         Changing number of days for research. Default - number = 14 days
         :param days: number of days or research
@@ -73,7 +78,7 @@ class HeadHunterAPI(API):
     def add_words(self, words: list):
         """
         Adding word for research.
-        :param text: list
+        :param words: list
         :return: None
         """
         self.params['text'] = words
@@ -88,7 +93,7 @@ class HeadHunterAPI(API):
 
     def load_all_areas(self):
         """
-        This function for loadind all areas headhunter and saving JSON-file
+        This function for load all areas headhunter and saving JSON-file
         :return: None
         """
         req = requests.get(HeadHunterAPI.HH_API_URL_AREAS)
@@ -104,11 +109,13 @@ class HeadHunterAPI(API):
                     areas[k['areas'][i]['name'].lower()] = k['areas'][i]['id']
         self.saver_areas.save_file(areas)
 
+
 class SuperJobAPI(API):
+    FILENAME = 'superjob_areas.json'
     SJ_API_URL = 'https://api.superjob.ru/2.0/vacancies/'
     SJ_API_URL_AREAS = 'https://api.superjob.ru/2.0/towns/'
     SJ_API_TOKEN: str = os.getenv('SJ_API_TOKEN')
-    SJ_AREAS_JSON = 'data/areas/superjob_areas.json'
+    SJ_AREAS_JSON = os.path.join(os.path.dirname(__file__), FILENAME)
     params_zero = {
         'count': 100,
         'page': 0
@@ -123,7 +130,7 @@ class SuperJobAPI(API):
         else:
             self.load_all_areas()
 
-    def change_date(self, days: int =14):
+    def change_date(self, days: int = 14):
         """
         Changing number of days for research. Default - number = 14 days
         :param days: number of days or research
@@ -136,7 +143,7 @@ class SuperJobAPI(API):
     def add_words(self, words: list):
         """
         Adding word for research.
-        :param text: list
+        :param words: list
         :return: None
         """
         self.params['keyword'] = words

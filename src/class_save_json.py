@@ -6,7 +6,7 @@ from abc import ABC, abstractmethod
 class JSONSaver(ABC):
 
     @abstractmethod
-    def __init__(self, path):
+    def __init__(self):
         pass
 
     @abstractmethod
@@ -20,6 +20,7 @@ class JSONSaver(ABC):
     @abstractmethod
     def check_file(self):
         pass
+
 
 class JSONSaver_Areas(JSONSaver):
     """
@@ -36,7 +37,6 @@ class JSONSaver_Areas(JSONSaver):
         """
         with open(self.path, "w", encoding='utf-8') as file:
             json.dump(data, file)
-
 
     def open_and_find_info(self, info: str):
         """

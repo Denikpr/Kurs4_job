@@ -1,5 +1,7 @@
 import csv
 import datetime
+import os
+
 from xlsxwriter.workbook import Workbook
 
 
@@ -30,8 +32,8 @@ class Saver:
                                  vacancy.experience, vacancy.employment])
         return path
 
-
-    def get_path_csv(self):
+    @staticmethod
+    def get_path_csv():
         """
         Getting path new file using date and time now.
         :return: path of new file
@@ -69,7 +71,8 @@ class Saver:
             worksheet.write(r+1, 0, r+1)
             worksheet.write(r+1, 1, vacancy.id)
             worksheet.write(r+1, 2, vacancy.name)
-            worksheet.write(r+1, 3, datetime.datetime.fromtimestamp(vacancy.data_published).strftime('%Y-%m-%d %H:%M:%S'))
+            worksheet.write(r+1, 3, datetime.datetime.fromtimestamp(vacancy.data_published).
+                            strftime('%Y-%m-%d %H:%M:%S'))
             worksheet.write(r+1, 4, vacancy.salary_from)
             worksheet.write(r+1, 5, vacancy.salary_to)
             worksheet.write(r+1, 6, vacancy.currency)
@@ -85,7 +88,8 @@ class Saver:
 
         return path
 
-    def get_path_xlsx(self):
+    @staticmethod
+    def get_path_xlsx():
         """
         Getting path new file using date and time now.
         :return: path of new file
