@@ -109,4 +109,5 @@ class Mylist:
         return path
 
     def __str__(self):
-        return '\n'.join([f'Vacancy N {index+1}\n{vacancy.__str__()}' for index, vacancy in enumerate(self.vacancy_list)])
+        return '\n'.join([f'Vacancy N {index+1}\n{vacancy.__str__()}'
+                          for index, vacancy in enumerate(self.vacancy_list)])

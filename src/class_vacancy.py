@@ -66,61 +66,60 @@ Url - {self.url}
         :return: object Vacancy
         """
         result = {
-            "id": cls.check_for_availability(vacancy_info_hh,"id"),
+            "id": cls.check_for_availability(vacancy_info_hh, "id"),
             "website": 'HeadHunter',
-            "type": cls.check_for_availability(vacancy_info_hh,"type","name"),
-            "name": cls.check_for_availability(vacancy_info_hh,"name"),
+            "type": cls.check_for_availability(vacancy_info_hh, "type", "name"),
+            "name": cls.check_for_availability(vacancy_info_hh, "name"),
             "data_published": datetime.datetime.strptime(vacancy_info_hh["published_at"],
                                                          '%Y-%m-%dT%H:%M:%S+%f').timestamp(),
             "salary_from": cls.check_for_availability(vacancy_info_hh, "salary", "from"),
             "salary_to": cls.check_for_availability(vacancy_info_hh, "salary", "to"),
             "currency": cls.check_for_availability(vacancy_info_hh, "salary", "currency"),
-            "area": cls.check_for_availability(vacancy_info_hh,"area", "name"),
-            "url": cls.check_for_availability(vacancy_info_hh,"alternate_url"),
-            "employer": cls.check_for_availability(vacancy_info_hh,"employer","name"),
-            "employer_url": cls.check_for_availability(vacancy_info_hh,"employer","alternate_url"),
-            "requirement": cls.check_for_availability(vacancy_info_hh,"snippet","requirement"),
-            "experience": cls.check_for_availability(vacancy_info_hh,"experience","name"),
-            "employment": cls.check_for_availability(vacancy_info_hh,"employment","name")
+            "area": cls.check_for_availability(vacancy_info_hh, "area", "name"),
+            "url": cls.check_for_availability(vacancy_info_hh, "alternate_url"),
+            "employer": cls.check_for_availability(vacancy_info_hh, "employer", "name"),
+            "employer_url": cls.check_for_availability(vacancy_info_hh, "employer", "alternate_url"),
+            "requirement": cls.check_for_availability(vacancy_info_hh, "snippet", "requirement"),
+            "experience": cls.check_for_availability(vacancy_info_hh, "experience", "name"),
+            "employment": cls.check_for_availability(vacancy_info_hh, "employment", "name")
         }
         return Vacancy(result)
-
-
 
     @classmethod
     def create_vacancy_from_sj(cls, vacancy_info_sj: dict):
         """
-        This classmethod is converting information about vacancy from superjob and creating object Vacancy
-        :param vacancy_info_hh: dict with information about vacancy
+        This classmethod is converting information about vacancy from sj and creating object Vacancy
+        :param vacancy_info_sj: dict with information about vacancy
         :return: object Vacancy
         """
 
         result = {
             "id": cls.check_for_availability(vacancy_info_sj, "id"),
-            "website": 'SupurJob',
+            "website": 'SuperJob',
             "type": 'Открытая',
-            "name": cls.check_for_availability(vacancy_info_sj,"profession"),
-            "data_published": cls.check_for_availability(vacancy_info_sj,"date_published"),
-            "salary_from": cls.check_for_availability(vacancy_info_sj,"payment_from"),
-            "salary_to": cls.check_for_availability(vacancy_info_sj,"payment_to"),
-            "currency": cls.check_for_availability(vacancy_info_sj,"currency"),
-            "area": cls.check_for_availability(vacancy_info_sj,"client", "town","title"),
-            "url": cls.check_for_availability(vacancy_info_sj,"link"),
-            "employer": cls.check_for_availability(vacancy_info_sj,"client","title"),
-            "employer_url": cls.check_for_availability(vacancy_info_sj,"client", "link"),
-            "requirement": cls.check_for_availability(vacancy_info_sj,"candidat"),
-            "experience": cls.check_for_availability(vacancy_info_sj,"experience","title"),
-            "employment": cls.check_for_availability(vacancy_info_sj,"type_of_work", "title")
+            "name": cls.check_for_availability(vacancy_info_sj, "profession"),
+            "data_published": cls.check_for_availability(vacancy_info_sj, "date_published"),
+            "salary_from": cls.check_for_availability(vacancy_info_sj, "payment_from"),
+            "salary_to": cls.check_for_availability(vacancy_info_sj, "payment_to"),
+            "currency": cls.check_for_availability(vacancy_info_sj, "currency"),
+            "area": cls.check_for_availability(vacancy_info_sj, "client", "town", "title"),
+            "url": cls.check_for_availability(vacancy_info_sj, "link"),
+            "employer": cls.check_for_availability(vacancy_info_sj, "client", "title"),
+            "employer_url": cls.check_for_availability(vacancy_info_sj, "client", "link"),
+            "requirement": cls.check_for_availability(vacancy_info_sj, "candidat"),
+            "experience": cls.check_for_availability(vacancy_info_sj, "experience", "title"),
+            "employment": cls.check_for_availability(vacancy_info_sj, "type_of_work", "title")
         }
         return Vacancy(result)
 
     @staticmethod
-    def check_for_availability(vacancy_information: dict, param1: str, param2: str =None, param3: str =None):
+    def check_for_availability(vacancy_information: dict, param1: str, param2: str = None, param3: str = None):
         """
         This staticmethod use during creating object Vacancy. Checking param for availability.
         :param vacancy_information: dict
         :param param1: str
         :param param2: str
+        :param param3: str
         :return: parameter or None
         """
         try:
@@ -147,6 +146,7 @@ Url - {self.url}
         else:
             requirement = self.requirement[:200]
         return f'''Vacancy - {self.name}
+        
 Type - {self.type}
 Data published - {datetime.datetime.fromtimestamp(self.data_published).strftime('%Y-%m-%d %H:%M:%S')}
 Employer - {self.employer}
@@ -185,61 +185,60 @@ Url - {self.url}
         :return: object Vacancy
         """
         result = {
-            "id": cls.check_for_availability(vacancy_info_hh,"id"),
+            "id": cls.check_for_availability(vacancy_info_hh, "id"),
             "website": 'HeadHunter',
-            "type": cls.check_for_availability(vacancy_info_hh,"type","name"),
-            "name": cls.check_for_availability(vacancy_info_hh,"name"),
+            "type": cls.check_for_availability(vacancy_info_hh, "type", "name"),
+            "name": cls.check_for_availability(vacancy_info_hh, "name"),
             "data_published": datetime.datetime.strptime(vacancy_info_hh["published_at"],
                                                          '%Y-%m-%dT%H:%M:%S+%f').timestamp(),
             "salary_from": cls.check_for_availability(vacancy_info_hh, "salary", "from"),
             "salary_to": cls.check_for_availability(vacancy_info_hh, "salary", "to"),
             "currency": cls.check_for_availability(vacancy_info_hh, "salary", "currency"),
-            "area": cls.check_for_availability(vacancy_info_hh,"area", "name"),
-            "url": cls.check_for_availability(vacancy_info_hh,"alternate_url"),
-            "employer": cls.check_for_availability(vacancy_info_hh,"employer","name"),
-            "employer_url": cls.check_for_availability(vacancy_info_hh,"employer","alternate_url"),
-            "requirement": cls.check_for_availability(vacancy_info_hh,"snippet","requirement"),
-            "experience": cls.check_for_availability(vacancy_info_hh,"experience","name"),
-            "employment": cls.check_for_availability(vacancy_info_hh,"employment","name")
+            "area": cls.check_for_availability(vacancy_info_hh, "area", "name"),
+            "url": cls.check_for_availability(vacancy_info_hh, "alternate_url"),
+            "employer": cls.check_for_availability(vacancy_info_hh, "employer", "name"),
+            "employer_url": cls.check_for_availability(vacancy_info_hh, "employer", "alternate_url"),
+            "requirement": cls.check_for_availability(vacancy_info_hh, "snippet", "requirement"),
+            "experience": cls.check_for_availability(vacancy_info_hh, "experience", "name"),
+            "employment": cls.check_for_availability(vacancy_info_hh, "employment", "name")
         }
         return Vacancy(result)
-
-
 
     @classmethod
     def create_vacancy_from_sj(cls, vacancy_info_sj: dict):
         """
-        This classmethod is converting information about vacancy from superjob and creating object Vacancy
-        :param vacancy_info_hh: dict with information about vacancy
+        This classmethod is converting information about vacancy from sj and creating object Vacancy
+        :param vacancy_info_sj: dict with information about vacancy
         :return: object Vacancy
         """
 
         result = {
             "id": cls.check_for_availability(vacancy_info_sj, "id"),
-            "website": 'SupurJob',
+            "website": 'SuperJob',
             "type": 'Открытая',
-            "name": cls.check_for_availability(vacancy_info_sj,"profession"),
-            "data_published": cls.check_for_availability(vacancy_info_sj,"date_published"),
-            "salary_from": cls.check_for_availability(vacancy_info_sj,"payment_from"),
-            "salary_to": cls.check_for_availability(vacancy_info_sj,"payment_to"),
-            "currency": cls.check_for_availability(vacancy_info_sj,"currency"),
-            "area": cls.check_for_availability(vacancy_info_sj,"client", "town","title"),
-            "url": cls.check_for_availability(vacancy_info_sj,"link"),
-            "employer": cls.check_for_availability(vacancy_info_sj,"client","title"),
-            "employer_url": cls.check_for_availability(vacancy_info_sj,"client", "link"),
-            "requirement": cls.check_for_availability(vacancy_info_sj,"candidat"),
-            "experience": cls.check_for_availability(vacancy_info_sj,"experience","title"),
-            "employment": cls.check_for_availability(vacancy_info_sj,"type_of_work", "title")
+            "name": cls.check_for_availability(vacancy_info_sj, "profession"),
+            "data_published": cls.check_for_availability(vacancy_info_sj, "date_published"),
+            "salary_from": cls.check_for_availability(vacancy_info_sj, "payment_from"),
+            "salary_to": cls.check_for_availability(vacancy_info_sj, "payment_to"),
+            "currency": cls.check_for_availability(vacancy_info_sj, "currency"),
+            "area": cls.check_for_availability(vacancy_info_sj, "client", "town", "title"),
+            "url": cls.check_for_availability(vacancy_info_sj, "link"),
+            "employer": cls.check_for_availability(vacancy_info_sj, "client", "title"),
+            "employer_url": cls.check_for_availability(vacancy_info_sj, "client", "link"),
+            "requirement": cls.check_for_availability(vacancy_info_sj, "candidat"),
+            "experience": cls.check_for_availability(vacancy_info_sj, "experience", "title"),
+            "employment": cls.check_for_availability(vacancy_info_sj, "type_of_work", "title")
         }
         return Vacancy(result)
 
     @staticmethod
-    def check_for_availability(vacancy_information: dict, param1: str, param2: str =None, param3: str =None):
+    def check_for_availability(vacancy_information: dict, param1: str, param2: str = None, param3: str = None):
         """
         This staticmethod use during creating object Vacancy. Checking param for availability.
         :param vacancy_information: dict
         :param param1: str
         :param param2: str
+        :param param3: str
         :return: parameter or None
         """
         try:
