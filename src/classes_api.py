@@ -2,7 +2,7 @@ import copy
 import datetime
 import json
 import time
-import os
+import os.path
 from abc import ABC, abstractmethod
 
 import requests
@@ -37,10 +37,9 @@ class HeadHunterAPI(API):
     """
     This class for getting information from headhunter API
     """
-    FILE1 = 'headhunter_areas.json'
     HH_API_URL = 'https://api.hh.ru/vacancies'
     HH_API_URL_AREAS = 'https://api.hh.ru/areas'
-    HH_AREAS_JSON = os.path.join(os.path.dirname(__file__), FILE1)
+    HH_AREAS_JSON = 'data/areas/headhunter_areas.json'
     params_zero = {
         'per_page': 100,
     }
@@ -64,8 +63,6 @@ class HeadHunterAPI(API):
         self.params = copy.deepcopy(self.params_zero)
         if 'items' in response_data:
             return response_data['items']
-        else:
-            return []
 
     def change_date(self, days: int = 14):
         """
@@ -111,11 +108,10 @@ class HeadHunterAPI(API):
 
 
 class SuperJobAPI(API):
-    FILENAME = 'superjob_areas.json'
     SJ_API_URL = 'https://api.superjob.ru/2.0/vacancies/'
     SJ_API_URL_AREAS = 'https://api.superjob.ru/2.0/towns/'
     SJ_API_TOKEN: str = os.getenv('SJ_API_TOKEN')
-    SJ_AREAS_JSON = os.path.join(os.path.dirname(__file__), FILENAME)
+    SJ_AREAS_JSON = 'data/areas/superjob_areas.json'
     params_zero = {
         'count': 100,
         'page': 0

@@ -144,7 +144,7 @@ class Userinput:
             user_input = input().lower()
             if user_input == '0':
                 break
-            if self.check_city(user_input) !== []:
+            if self.check_city(user_input):
                 self.param['city'].append(user_input)
                 break
             else:
