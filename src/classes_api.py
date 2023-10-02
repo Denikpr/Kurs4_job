@@ -64,8 +64,6 @@ class HeadHunterAPI(API):
         self.params = copy.deepcopy(self.params_zero)
         if 'items' in response_data:
             return response_data['items']
-        else:
-            return []
 
     def change_date(self, days: int = 14):
         """
@@ -111,11 +109,11 @@ class HeadHunterAPI(API):
 
 
 class SuperJobAPI(API):
-    FILENAME = 'superjob_areas.json'
+    FILE2 = 'superjob_areas.json'
     SJ_API_URL = 'https://api.superjob.ru/2.0/vacancies/'
     SJ_API_URL_AREAS = 'https://api.superjob.ru/2.0/towns/'
     SJ_API_TOKEN: str = os.getenv('SJ_API_TOKEN')
-    SJ_AREAS_JSON = os.path.join(os.path.dirname(__file__), FILENAME)
+    SJ_AREAS_JSON = os.path.join(os.path.dirname(__file__), FILE2)
     params_zero = {
         'count': 100,
         'page': 0
